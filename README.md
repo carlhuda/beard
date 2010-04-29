@@ -1,0 +1,1 @@
+## Beard: Rails' evil twin (with a beard)
