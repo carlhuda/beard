@@ -1,1 +1,4 @@
-puts "So far, we only have a 5'oclock shadow"
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'dm-rails'
+require 'rspec-rails'

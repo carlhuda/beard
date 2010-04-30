@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rspec-rails",  "2.0.0.beta.8"
   s.add_dependency "haml",         "3.0.0.rc.2"
   s.add_dependency "dm-rails",     "0.10.2"
+  # depend on dm-migrations because dm-rails forgot to
+  s.add_dependency "dm-migrations", "0.10.2"
 
   s.files        = Dir.glob("{lib}/**/*") + %w(LICENSE README.md ROADMAP.md CHANGELOG.md)
   s.require_path = 'lib'

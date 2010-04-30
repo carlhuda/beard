@@ -2,9 +2,15 @@ class AppBuilder < Rails::AppBuilder
   def gemfile
     create_file "Gemfile", <<-G.gsub(/^ {6}/, '')
       source "http://rubygems.org"
+      git "http://github.com/datamapper/dm-rails.git"
+      git "http://github.com/datamapper/dm-core.git"
+      git "http://github.com/datamapper/dm-active_model.git"
+      git "http://github.com/datamapper/dm-sqlite-adapter.git"
+      git "http://github.com/datamapper/dm-do-adapter.git"
+      git "http://github.com/rspec/rspec-rails.git"
 
-      gem "beard"
-      gem "do_sqlite3"
+      gem "beard", :path => "~/Developer/Source/beard"
+      gem "dm-sqlite-adapter"
     G
   end
 
