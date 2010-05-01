@@ -1,3 +1,7 @@
+ENV["BUNDLE_GEMFILE"] = nil
+ENV["BUNDLE_PATH"] = nil
+ENV["RUBYOPT"] = nil
+
 class AppBuilder < Rails::AppBuilder
   def gemfile
     create_file "Gemfile", <<-G.gsub(/^ {6}/, '')
@@ -8,10 +12,37 @@ class AppBuilder < Rails::AppBuilder
       git "http://github.com/datamapper/dm-sqlite-adapter.git"
       git "http://github.com/datamapper/dm-do-adapter.git"
       git "http://github.com/rspec/rspec-rails.git"
+      git "git://github.com/rails/rails.git"
 
-      gem "beard", :path => "~/Developer/Source/beard"
+      gem "beard", :path => "~/Code/beard"
       gem "dm-sqlite-adapter"
     G
+
+    say_status :installing, "beard dependencies"
+    puts
+    puts "--- fetching beard dependencies into #{Dir.pwd} ---"
+
+    system "bundle install"
+    puts "--- done fetching and installing ---"
+    puts
+  end
+
+  def app
+    directory "app/controllers"
+    directory "app/helpers"
+    directory "app/models"
+    create_file "app/views/layouts/application.html.haml", <<-H.gsub(/^ {6}/, '')
+      !!!5
+      %html
+        %head
+          %title= #{app_const_base}
+          = stylesheet_link_tag :all
+          = javascript_include_tag :defaults
+          = csrf_meta_tag
+
+        %body
+          = yield
+    H
   end
 
   def javascripts
@@ -19,19 +50,23 @@ class AppBuilder < Rails::AppBuilder
     create_file "public/javascripts/jquery.js", open("http://code.jquery.com/jquery-1.4.2.min.js") {|io| io.read }
   end
 
-  def test
-    empty_directory "spec"
-
-    inside "spec" do
-      create_file "spec_helper.rb", open("http://github.com/rspec/rspec-rails/raw/master/lib/generators/rspec/install/templates/spec/spec_helper.rb") {|io| io.read }
-    end
-
-    empty_directory "autotest"
-
-    inside "autotest" do
-      create_file "discover.rb", open("http://github.com/rspec/rspec-rails/raw/master/lib/generators/rspec/install/templates/autotest/discover.rb") {|io| io.read }
+  def leftovers
+    IO.popen("ruby script/rails g rspec:install") do |io|
+      while string = io.gets
+        puts string unless string =~ /^\[datamapper\]/
+      end
     end
   end
 
+  undef :test
   undef :vendor_plugins
+
+private
+  def say_status(*args)
+    @generator.say_status(*args)
+  end
+
+  def app_const_base(*args)
+    @generator.send(:app_const_base, *args)
+  end
 end
