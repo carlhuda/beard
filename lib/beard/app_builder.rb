@@ -1,9 +1,10 @@
-ENV["BUNDLE_GEMFILE"] = nil
-ENV["BUNDLE_PATH"] = nil
-ENV["RUBYOPT"] = nil
-
 class AppBuilder < Rails::AppBuilder
   def gemfile
+    if dev = ENV["BEARD_DEV"]
+      path = File.expand_path("../../..", __FILE__)
+      beard = %{, :path => "#{path}"}
+    end
+
     create_file "Gemfile", <<-G.gsub(/^ {6}/, '')
       source "http://rubygems.org"
       git "http://github.com/datamapper/dm-rails.git"
@@ -14,7 +15,7 @@ class AppBuilder < Rails::AppBuilder
       git "http://github.com/rspec/rspec-rails.git"
       git "git://github.com/rails/rails.git"
 
-      gem "beard", :path => "~/Code/beard"
+      gem "beard"#{beard}
       gem "dm-sqlite-adapter"
     G
 
@@ -56,7 +57,7 @@ class AppBuilder < Rails::AppBuilder
   end
 
   def leftovers
-    IO.popen("ruby script/rails g rspec:install") do |io|
+    IO.popen("rails g rspec:install") do |io|
       while string = io.gets
         puts string unless string =~ /^\[datamapper\]/
       end
