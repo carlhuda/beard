@@ -19,19 +19,8 @@ module Spec
       root.join("temp_app")
     end
 
-    def with_clean_env
-      gemfile, ENV["BUNDLE_GEMFILE"] = ENV["BUNDLE_GEMFILE"], nil
-      path, ENV["BUNDLE_PATH"]       = ENV["BUNDLE_PATH"], nil
-      opt, ENV["RUBYOPT"]            = ENV["RUBYOPT"], nil
-      yield
-    ensure
-      ENV["BUNDLE_GEMFILE"] = gemfile
-      ENV["BUNDLE_PATH"] = path
-      ENV["RUBYOPT"] = opt
-    end
-
     def run_command(*args)
-      with_clean_env { open_without_dm(*args) }
+      open_without_dm(*args)
     end
 
     def open_without_dm(*args)
