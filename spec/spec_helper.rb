@@ -18,6 +18,7 @@ Rspec.configure do |config|
     wipe_tmp("temp_app")
     Dir.chdir(root)
     FileUtils.cp_r("original", "temp_app")
+    Dir.chdir(app)
   end
 
   config.after do
