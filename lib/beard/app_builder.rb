@@ -22,7 +22,12 @@ class AppBuilder < Rails::AppBuilder
     puts
     puts "--- fetching beard dependencies into #{Dir.pwd} ---"
 
-    system "bundle install"
+    system "bundle check"
+
+    unless $?.exitstatus.zero?
+      system "bundle install"
+    end
+
     puts "--- done fetching and installing ---"
     puts
   end
