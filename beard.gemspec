@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.add_dependency "actionmailer",   "3.0.0.beta3"
   s.add_dependency "astaire",        "0.2.0"
   s.add_dependency "rspec-rails",    "2.0.0.beta.8"
-  s.add_dependency "capybara",       "0.3.7"
   s.add_dependency "haml",           "3.0.0.rc.2"
   s.add_dependency "dm-rails",       "0.10.2"
   s.add_dependency "dm-validations", "0.10.3"
