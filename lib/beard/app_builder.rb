@@ -7,7 +7,7 @@ class AppBuilder < Rails::AppBuilder
 
     repos = %w(dm-rails dm-core dm-migrations dm-active_model
                dm-sqlite-adapter dm-do-adapter dm-validations
-               rspec-rails rails)
+               rspec-rails rails devise)
 
     if repos_root = ENV["BEARD_REPO_ROOT"]
       repos_root = File.expand_path(repos_root)
@@ -21,6 +21,7 @@ class AppBuilder < Rails::AppBuilder
         git "http://github.com/datamapper/dm-active_model.git"
         git "http://github.com/datamapper/dm-sqlite-adapter.git"
         git "http://github.com/datamapper/dm-do-adapter.git"
+        git "http://github.com/plataformatec/devise.git"
         git "http://github.com/rspec/rspec-rails.git"
         git "git://github.com/rails/rails.git"
       REPOS
