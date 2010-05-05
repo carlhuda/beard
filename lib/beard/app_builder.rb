@@ -6,7 +6,7 @@ class AppBuilder < Rails::AppBuilder
     end
 
     repos = %w(dm-rails dm-core dm-migrations dm-active_model
-               dm-sqlite-adapter dm-do-adapter
+               dm-sqlite-adapter dm-do-adapter dm-validations
                rspec-rails rails)
 
     if repos_root = ENV["BEARD_REPO_ROOT"]
@@ -17,6 +17,7 @@ class AppBuilder < Rails::AppBuilder
         git "http://github.com/datamapper/dm-rails.git"
         git "http://github.com/datamapper/dm-core.git"
         git "http://github.com/datamapper/dm-migrations.git"
+        git "http://github.com/datamapper/dm-validations.git"
         git "http://github.com/datamapper/dm-active_model.git"
         git "http://github.com/datamapper/dm-sqlite-adapter.git"
         git "http://github.com/datamapper/dm-do-adapter.git"

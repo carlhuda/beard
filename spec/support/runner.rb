@@ -23,12 +23,23 @@ module Spec
       open_without_dm(*args)
     end
 
-    def open_without_dm(*args)
-      IO.popen(*args) do |io|
+    def open_without_dm(command, should_output = true)
+      output = ""
+
+      IO.popen(command) do |io|
         while string = io.gets
-          puts string unless string =~ /^\[datamapper\]/
+          next if string =~ /^\[datamapper\]/
+
+          if block_given?
+            yield string
+          elsif should_output
+            puts string
+          end
+          output << string
         end
       end
+
+      output
     end
 
     def generate_beard(location = "temp_app")

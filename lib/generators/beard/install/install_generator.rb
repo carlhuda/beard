@@ -42,5 +42,10 @@ module Beard
       say_status :creating, "User model", :white
       with_padding { invoke "devise", %w(user) }
     end
+
+    def copy_devise_views
+      say_status :copying, "Devise views for customization", :white
+      with_padding { invoke "devise_views" }
+    end
   end
 end

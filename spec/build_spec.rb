@@ -48,6 +48,8 @@ describe "generating a Rails app with the beard builder" do
         end
 
         directory "views" do
+          directory "devise"
+
           directory "layouts" do
             file "application.html.haml"
           end
