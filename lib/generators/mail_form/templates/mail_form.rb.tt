@@ -1,7 +1,7 @@
 class <%= class_name %> < MailForm::Base
-  <% options[:attributes].each do |attribute| -%>
+<% options[:attributes].each do |attribute| -%>
   attribute :<%= attribute %>
-  <% end -%>
+<% end -%>
 
   # The headers that should be sent with the
   # email. Note that the from email is automatically
