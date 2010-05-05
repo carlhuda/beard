@@ -5,6 +5,7 @@ require 'dm-migrations'
 require 'rspec-rails'
 require 'devise'
 require 'haml'
+require 'mail_form'
 
 module Beard
   class Railtie < ::Rails::Railtie
