@@ -28,7 +28,12 @@ describe "generating a Rails app with the beard builder" do
       end
 
       directory "app" do
-        directory "models"
+        directory "models" do
+          file "user.rb" do
+            contains "include DataMapper::Resource"
+            contains "devise :"
+          end
+        end
 
         directory "controllers" do
           file "application_controller.rb"

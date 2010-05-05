@@ -33,13 +33,15 @@ class AppBuilder < Rails::AppBuilder
       gem "dm-sqlite-adapter"
     G
 
-    say_status :installing, "beard dependencies"
+    say_status :installing, "beard dependencies", :white
     system "bundle check 2>/dev/null 1>/dev/null"
 
-    unless $?.exitstatus.zero?
-      system "bundle install"
-    else
-      say_status :uptodate, "with all required dependencies"
+    with_padding do
+      unless $?.exitstatus.zero?
+        system "bundle install"
+      else
+        say_status :uptodate, "with all required dependencies"
+      end
     end
   end
 
@@ -103,10 +105,12 @@ private
     end
   end
 
-  %w(say_status app_const_base gsub_file file).each do |meth|
-    define_method(meth) do |*args|
-      @generator.send(meth, *args)
-    end
+  %w(say_status app_const_base gsub_file file with_padding).each do |meth|
+    class_eval <<-RUBY, __FILE__, __LINE__ + 1
+      def #{meth}(*args, &block)
+        @generator.send(:#{meth}, *args, &block)
+      end
+    RUBY
   end
 end
 

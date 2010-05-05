@@ -33,5 +33,10 @@ module Beard
     def root_to_welcome
       route %{root :to => "welcome#index"}
     end
+
+    def user_model
+      say_status :creating, "User model", :white
+      with_padding { invoke "devise", %w(user) }
+    end
   end
 end
