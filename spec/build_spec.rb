@@ -32,10 +32,14 @@ describe "generating a Rails app with the beard builder" do
 
         directory "controllers" do
           file "application_controller.rb"
+          file "welcome_controller.rb"
         end
 
         directory "helpers" do
           file "application_helper.rb"
+          directory "beard" do
+            file "flash_helper.rb"
+          end
         end
 
         directory "views" do
@@ -56,13 +60,19 @@ describe "generating a Rails app with the beard builder" do
           file "test.rb"
         end
 
-        directory "initializers"
+        directory "initializers" do
+          file "devise.rb"
+        end
 
         directory "locales" do
           file "en.yml"
+          file "devise.en.yml"
         end
 
-        file "routes.rb"
+        file "routes.rb" do
+          contains %{root :to => "welcome#index"}
+        end
+
         file "database.yml"
       end
 
@@ -90,7 +100,7 @@ describe "generating a Rails app with the beard builder" do
         file "robots.txt"
         file "favicon.ico"
       end
-      
+
       directory "spec" do
         file "spec_helper.rb"
       end

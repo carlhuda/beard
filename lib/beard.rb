@@ -2,6 +2,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'dm-rails'
 require 'rspec-rails'
+require 'devise'
 
 module Beard
   class Railtie < ::Rails::Railtie

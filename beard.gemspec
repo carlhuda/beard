@@ -19,9 +19,11 @@ Gem::Specification.new do |s|
   s.add_dependency "capybara",     "0.3.7"
   s.add_dependency "haml",         "3.0.0.rc.2"
   s.add_dependency "dm-rails",     "0.10.2"
+  s.add_dependency "mail_form",    "1.2.1"
+  s.add_dependency "devise",       "1.1.rc1"
+
   # depend on dm-migrations because dm-rails forgot to
   s.add_dependency "dm-migrations", "0.10.2"
-  s.add_dependency "mail_form",     "1.2.1"
 
   s.files        = Dir.glob("{lib}/**/*") + %w(LICENSE README.md ROADMAP.md CHANGELOG.md)
   s.require_path = 'lib'
