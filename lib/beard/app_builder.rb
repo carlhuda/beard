@@ -84,6 +84,12 @@ class AppBuilder < Rails::AppBuilder
     create_file "public/javascripts/jquery.js", RAILS_JS
   end
 
+  def stylesheets
+    empty_directory "public/stylesheets"
+    empty_directory "public/stylesheets/sass"
+    create_file "public/stylesheets/sass/application.sass"
+  end
+
   def leftovers
     run_command("rails g beard:install")
   end

@@ -1,5 +1,7 @@
 require "generators/beard/generator"
 
+STDOUT.sync = true
+
 module Beard
   class InstallGenerator < Rails::Generators::Base
     extend Beard::Generator
@@ -46,6 +48,11 @@ module Beard
     def copy_devise_views
       say_status :copying, "Devise views for customization", :white
       with_padding { invoke "devise_views" }
+    end
+
+    def setup_db
+      say_status :setup, "database"
+      system "rake db:automigrate"
     end
   end
 end

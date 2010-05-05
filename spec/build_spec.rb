@@ -85,6 +85,8 @@ describe "generating a Rails app with the beard builder" do
 
       directory "db" do
         file "seeds.rb"
+        file "development.sqlite3"
+        file "test.sqlite3"
       end
 
       directory "lib"
@@ -97,7 +99,12 @@ describe "generating a Rails app with the beard builder" do
           end
         end
 
-        directory "stylesheets"
+        directory "stylesheets" do
+          directory "sass" do
+            file "application.sass"
+          end
+        end
+
         directory "images" do
           no_file "rails.png"
         end
