@@ -5,7 +5,7 @@ class AppBuilder < Rails::AppBuilder
       beard = %{, :path => "#{path}"}
     end
 
-    repos = %w(dm-rails dm-core dm-active_model
+    repos = %w(dm-rails dm-core dm-migrations dm-active_model
                dm-sqlite-adapter dm-do-adapter
                rspec-rails rails)
 
@@ -16,6 +16,7 @@ class AppBuilder < Rails::AppBuilder
       repos = <<-REPOS.gsub(/^ {8}/, '').split("\n")
         git "http://github.com/datamapper/dm-rails.git"
         git "http://github.com/datamapper/dm-core.git"
+        git "http://github.com/datamapper/dm-migrations.git"
         git "http://github.com/datamapper/dm-active_model.git"
         git "http://github.com/datamapper/dm-sqlite-adapter.git"
         git "http://github.com/datamapper/dm-do-adapter.git"

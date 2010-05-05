@@ -1,6 +1,7 @@
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'dm-rails'
+require 'dm-migrations'
 require 'rspec-rails'
 require 'devise'
 require 'haml'

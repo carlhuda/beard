@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise",       "1.1.rc1"
 
   # depend on dm-migrations because dm-rails forgot to
-  s.add_dependency "dm-migrations", "0.10.2"
+  s.add_dependency "dm-migrations", "0.10.3"
 
   s.files        = Dir.glob("{lib}/**/*") + %w(LICENSE README.md ROADMAP.md CHANGELOG.md)
   s.require_path = 'lib'
