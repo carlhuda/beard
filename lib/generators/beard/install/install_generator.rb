@@ -6,7 +6,11 @@ module Beard
 
     def install_dependencies
       say_status :installing, "rspec", :white
-      with_padding { invoke "rspec:install" }
+      with_padding do
+        invoke "rspec:install"
+        gsub_file("config/initializers/rspec_generator.rb",
+                  /^/, "#  ", :verbose => false)
+      end
 
       say_status :installing, "devise", :white
       with_padding do
