@@ -5,15 +5,28 @@ class AppBuilder < Rails::AppBuilder
       beard = %{, :path => "#{path}"}
     end
 
+    repos = %w(dm-rails dm-core dm-active_model
+               dm-sqlite-adapter dm-do-adapter
+               rspec-rails rails)
+
+    if repos_root = ENV["BEARD_REPO_ROOT"]
+      repos_root = File.expand_path(repos_root)
+      repos.map! {|repo| %{path "#{repos_root}/#{repo}"} }
+    else
+      repos = <<-REPOS.gsub(/^ {8}/, '').split("\n")
+        git "http://github.com/datamapper/dm-rails.git"
+        git "http://github.com/datamapper/dm-core.git"
+        git "http://github.com/datamapper/dm-active_model.git"
+        git "http://github.com/datamapper/dm-sqlite-adapter.git"
+        git "http://github.com/datamapper/dm-do-adapter.git"
+        git "http://github.com/rspec/rspec-rails.git"
+        git "git://github.com/rails/rails.git"
+      REPOS
+    end
+
     create_file "Gemfile", <<-G.gsub(/^ {6}/, '')
       source "http://rubygems.org"
-      git "http://github.com/datamapper/dm-rails.git"
-      git "http://github.com/datamapper/dm-core.git"
-      git "http://github.com/datamapper/dm-active_model.git"
-      git "http://github.com/datamapper/dm-sqlite-adapter.git"
-      git "http://github.com/datamapper/dm-do-adapter.git"
-      git "http://github.com/rspec/rspec-rails.git"
-      git "git://github.com/rails/rails.git"
+      #{repos.join("\n      ")}
 
       gem "beard"#{beard}
       gem "dm-sqlite-adapter"
