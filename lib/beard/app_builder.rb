@@ -62,26 +62,25 @@ class AppBuilder < Rails::AppBuilder
     H
   end
 
+  def public_directory
+    empty_directory "public", :verbose => false
+    file "public/favicon.ico"
+    file "public/404.html"
+    file "public/422.html"
+    file "public/500.html"
+    file "public/robots.txt"
+  end
+
+  def images
+    empty_directory "public/images"
+  end
+
   def javascripts
     create_file "public/javascripts/rails.js",  JQUERY_JS
     create_file "public/javascripts/jquery.js", RAILS_JS
   end
 
   def leftovers
-    run_command("rails g rspec:install")
-
-    i = 0
-    run_command("rails g devise_install") do |string|
-      say_status (i.zero? ? :readme : "."), string
-      i += 1
-    end
-
-    say_status :replacing, "ActiveRecord with DataMapper in initializers/devise.rb"
-    gsub_file("config/initializers/devise.rb",
-              %r{'devise/orm/active_record'},
-              %{'devise/orm/data_mapper'},
-              :verbose => false)
-
     run_command("rails g beard:install")
   end
 
@@ -104,7 +103,7 @@ private
     end
   end
 
-  %w(say_status app_const_base gsub_file).each do |meth|
+  %w(say_status app_const_base gsub_file file).each do |meth|
     define_method(meth) do |*args|
       @generator.send(meth, *args)
     end

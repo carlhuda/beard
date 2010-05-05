@@ -91,9 +91,11 @@ describe "generating a Rails app with the beard builder" do
         end
 
         directory "stylesheets"
-        directory "images"
+        directory "images" do
+          no_file "rails.png"
+        end
 
-        file "index.html"
+        no_file "index.html"
         file "500.html"
         file "404.html"
         file "422.html"

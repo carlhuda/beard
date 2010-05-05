@@ -34,6 +34,7 @@ module Spec
 
       def initialize(root = nil, &block)
         @tree = {}
+        @negative_tree = []
         @root = root
         instance_eval(&block) if block_given?
       end
@@ -44,6 +45,10 @@ module Spec
 
       def file(name, &block)
         @tree[name] = File.new(location(name), &block)
+      end
+
+      def no_file(name)
+        @negative_tree << name
       end
 
       def location(name)
@@ -60,13 +65,22 @@ module Spec
             value.matches?(root)
           end
         end
+
+        @negative_tree.each do |file|
+          if root.join(location(file)).exist?
+            throw :failure, [:not, "unexpected #{root}/#{location(file)}"]
+          end
+        end
+
         nil
       end
     end
 
     class Root < Directory
       def failure_message
-        if @failure.is_a?(Array)
+        if @failure.is_a?(Array) && @failure[0] == :not
+          "Structure should not have had #{@failure[1]}, but it did"
+        elsif @failure.is_a?(Array)
           "Structure should have #{@failure[0]} with #{@failure[1]}. It had:\n#{@failure[2]}"
         else
           "Structure should have #{@failure}, but it didn't"
