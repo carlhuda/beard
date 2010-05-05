@@ -6,6 +6,7 @@ require 'rspec-rails'
 require 'devise'
 require 'haml'
 require 'mail_form'
+require 'will_paginate'
 
 module Beard
   class Railtie < ::Rails::Railtie
