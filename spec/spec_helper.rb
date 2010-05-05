@@ -1,3 +1,4 @@
+require "rubygems"
 require "rspec"
 require "support/runner"
 require "support/matcher"
