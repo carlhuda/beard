@@ -80,8 +80,8 @@ class AppBuilder < Rails::AppBuilder
   end
 
   def javascripts
-    create_file "public/javascripts/rails.js",  JQUERY_JS
-    create_file "public/javascripts/jquery.js", RAILS_JS
+    create_file "public/javascripts/rails.js",  RAILS_JS
+    create_file "public/javascripts/jquery.js", JQUERY_JS
   end
 
   def stylesheets
